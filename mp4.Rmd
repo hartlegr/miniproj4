@@ -18,10 +18,38 @@ db <- dbConnect(MySQL(),
 ```
 
 ```{r}
-st_as_sf()
+library(tidyverse)
+  library(RMySQL)
+  db <- dbConnect(MySQL(), 
+                  host = "scidb.smith.edu", 
+                  user = "mth292", 
+                  password = "RememberPi", 
+                  dbname = "citibike")
+  knitr::opts_chunk$set(connection = db, max.print = 20)
 
 ```
 
+```{sql connection= db, output.var = "biking"}
+SELECT *
+FROM trips 
+WHERE stop_time LIKE '%2017-11-22 %'
+
+```
+
+```{r}
+demographic_bike <- db%>%
+  dbGetQuery("SELECT *
+FROM trips 
+WHERE stop_time LIKE '%2017-11-22 %'
+")
+
+```
+
+```{r}
+biking %>%
+ggplot(aes(x = birth_year) 
+       + geom_bar())
+```
 
 ```{r}
 bike_data <- db%>%
@@ -56,8 +84,8 @@ leaflet()%>%
   addMarkers(lng = -73.95818491, lat = 40.76500525, popup= "Sixth Stop (AMRITA!)", icon = Amrita)%>%
   addMarkers(lng = -73.96222088, lat = 40.773763, popup= "Seventh Stop", icon = Bike_Icon)%>%
   addMarkers(lng = -73.98490707, lat = 40.74765947, popup= "Eighth Stop", icon = Bike_Icon)
+ 
 ```
 
 
-
-
+```{r}
