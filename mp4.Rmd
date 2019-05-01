@@ -1,20 +1,63 @@
 ---
-title: "mp4"
+title: "Mini Project 4"
 output: html_document
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(RMySQL)
+library(leaflet)
+db <- dbConnect(MySQL(),
+                host = "scidb.smith.edu",
+                user = "mth292",
+                password = "RememberPi",
+                dbname = "citibike") 
 ```
+
+```{r}
+st_as_sf()
+
+```
+
+
+```{r}
+bike_data <- db%>%
+  dbGetQuery("SELECT *
+FROM trips t
+LEFT JOIN station_months s
+ON t.start_station_id = s.station_id
+WHERE stop_time LIKE '%2017-11-22 %'
+AND birth_year = 2000
+AND bike_id = 17321;
+")
+```
+
+
+```{r}
+Amrita <-makeIcon(iconUrl = ("http://i67.tinypic.com/ngq4ah.jpg" ), iconWidth = 35, iconHeight = 40) 
+```
+
+```{r}
+Bike_Icon <- makeIcon(iconUrl = ("http://icons.iconarchive.com/icons/fasticon/ifunny-vol-2/128/bike-icon.png"), iconWidth = 35, iconHeight = 40)
+```
+
+
+```{r}
+leaflet()%>%
+  addTiles()%>%
+  addMarkers(lng = -73.99392888, lat = 40.76727216, popup = "First Stop", icon = Bike_Icon)%>% 
+  addMarkers(lng = -73.9845272898674, lat = 40.76068327096592, popup= "Second Stop", icon = Bike_Icon)%>% 
+  addMarkers(lng = -73.96409422159195, lat = 40.77118287540658, popup= "Third Stop", icon = Bike_Icon)%>%
+  addMarkers(lng = -73.97109243, lat = 40.76350532, popup= "Fourth Stop", icon = Bike_Icon)%>%
+  addMarkers(lng = -73.97282625, lat = 40.75255434, popup= "Fifth Stop", icon = Bike_Icon)%>%
+  addMarkers(lng = -73.95818491, lat = 40.76500525, popup= "Sixth Stop (AMRITA!)", icon = Amrita)%>%
+  addMarkers(lng = -73.96222088, lat = 40.773763, popup= "Seventh Stop", icon = Bike_Icon)%>%
+  addMarkers(lng = -73.98490707, lat = 40.74765947, popup= "Eighth Stop", icon = Bike_Icon)
+```
+
+
 
 
