@@ -1,7 +1,12 @@
 ---
 title: "Mini Project 4"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
+
+^[https://github.com/hartlegr/miniproj4]
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -17,7 +22,7 @@ db <- dbConnect(MySQL(),
                 dbname = "citibike") 
 ```
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 library(tidyverse)
   library(RMySQL)
   db <- dbConnect(MySQL(), 
@@ -42,9 +47,11 @@ demographic_bike <- db%>%
 FROM trips 
 WHERE stop_time LIKE '%2017-11-22 %'
 AND birth_year IS NOT NULL
+GROUP BY stop_time
 ")
 
 ```
+Hundreds of thousands of New Yorkers use CitiBike (link to citibike) every day. Whether it be used for commuting to work, buying groceries or a late night booty call, CitiBike has replaced the taxi, Uber and Via industries. Amrita is one of those people. We investigate the path Amrita’s bike (17321) took on November 22nd, 2017. What other stories intersect with Amrita’s? We look at the bike with a philosophical and sociological lens: where are people going, what are they doing, why are they doing it, and how do bikes contribute to this? 
 
 
 
@@ -58,6 +65,7 @@ ggplot(aes(stop_time, birth_year, col = "blue")) +
 ```
 
 
+
 ```{r}
 Amrita <-makeIcon(iconUrl = ("http://i67.tinypic.com/ngq4ah.jpg" ), iconWidth = 35, iconHeight = 40) 
 ```
@@ -65,6 +73,10 @@ Amrita <-makeIcon(iconUrl = ("http://i67.tinypic.com/ngq4ah.jpg" ), iconWidth = 
 ```{r}
 Bike_Icon <- makeIcon(iconUrl = ("http://icons.iconarchive.com/icons/fasticon/ifunny-vol-2/128/bike-icon.png"), iconWidth = 35, iconHeight = 40)
 ```
+New York is one of the easiest cities to go unnoticed. With over 8.6 million populating all five boroughs, anonymity is one of the privileges of moving to this busy place. However, CitiBike makes us wonder, even if you’re off the grid, are you really off the grid?
+	CitiBike data set allows the public to view information about people’s age demographics, gender, and where people were at what time. Sure, the identification of the person is not revealed, but hypothetically using the trends in the data we could find any CitiBike user’s history. There’s no more room in this world for white lies. 
+	Are subscribers being mislead about what information is going out? CitiBike has published data from all the months since 2016 on their website, however, few users actually know their moves are being tracked and saved. 
+	Of course there are certain benefits to preserving data like this. For example, if a crime is committed and the suspect is a CitiBike subscribers, it’s possible knowing their rides could build up an alibi in court.
 
 
 ```{r}
