@@ -59,15 +59,18 @@ ggplot(aes(stop_time, birth_year, col = "blue")) +
 
 
 ```{r}
+#Making Amrita icon to show where she got bike 17321!
 Amrita <-makeIcon(iconUrl = ("http://i67.tinypic.com/ngq4ah.jpg" ), iconWidth = 35, iconHeight = 40) 
 ```
 
 ```{r}
+#Making bike icon for other stops
 Bike_Icon <- makeIcon(iconUrl = ("http://icons.iconarchive.com/icons/fasticon/ifunny-vol-2/128/bike-icon.png"), iconWidth = 35, iconHeight = 40)
 ```
 
 
 ```{r}
+#adding locations bike 17321 docked at on November 22nd, 2017
 leaflet()%>%
   addTiles()%>%
   addMarkers(lng = -73.99392888, lat = 40.76727216, popup = "First Stop", icon = Bike_Icon)%>% 
