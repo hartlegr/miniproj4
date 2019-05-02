@@ -1,5 +1,6 @@
 ---
-title: "Mini Project 4"
+title: "No Longer Just a Statistic: The Person Behind the Bike"
+author: Grace Hartley, Callie Slevin, Amrita Acharya
 output: 
   html_document:
     code_folding: hide
